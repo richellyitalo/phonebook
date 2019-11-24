@@ -125,3 +125,5 @@ tags
 src/db.sqlite3
 
 env/
+
+.vscode/
