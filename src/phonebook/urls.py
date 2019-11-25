@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from core.viewsets import ContactViewSet
+from rest_framework.authtoken import views
 
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -25,5 +26,6 @@ router.register(r'contacts', ContactViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path(r'api/', include(router.urls))
+    path(r'api/', include(router.urls)),
+    path(r'api/login/', views.obtain_auth_token)
 ]
