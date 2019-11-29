@@ -9,6 +9,10 @@ class ContactViewSet(viewsets.ModelViewSet):
     serializer_class = ContactSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
+    def create(self, request):
+        print('criar')
+        pass
+
     def get_queryset(self):
         user = self.request.user
         return Contact.objects.filter(user=user)

@@ -12,6 +12,9 @@ class UserSerializer(serializers.ModelSerializer):
 class ContactSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
+    def create(self, validated_data):
+        print('create')
+
     class Meta:
         model = Contact
         fields = '__all__'
