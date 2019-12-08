@@ -9,9 +9,13 @@ class ContactViewSet(viewsets.ModelViewSet):
     serializer_class = ContactSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
-    def create(self, request):
-        print('criar')
-        pass
+    def perform_create(self, serializer):
+        request = self.request
+        serializer.save(user=1)
+
+    # def create(self, request):
+    #     request.data.user = 1
+    #     return super().create(request)
 
     def get_queryset(self):
         user = self.request.user
