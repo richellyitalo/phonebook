@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import filters
 from django.contrib.auth.models import User
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 
 
 class ContactViewSet(viewsets.ModelViewSet):
@@ -35,14 +35,17 @@ class ContactViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([])
 def create_auth(request):
-    serialized = UserSerializer(data=request.DATA)
+    serialized = UserSerializer(data=request.data)
     if serialized.is_valid():
-        user = User.objects.create_user(
-            serialized.init_data['email'],
-            serialized.init_data['username'],
-            serialized.init_data['password']
-        )
-        return Response(user, status=status.HTTP_201_CREATED)
+        # user = User.objects.create_user(
+        #     serialized.data['username'],
+        #     serialized.data['email'],
+        #     request.data['password']
+        # )
+        user = User.objects.get(pk=3)
+        return Response(UserSerializer(user), status=status.HTTP_201_CREATED)
     else:
-        return Response('serialized._errors', status=status.HTTP_400_BAD_REQUEST)
+        return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
