@@ -10,10 +10,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ContactSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    # user = UserSerializer(default=serializers.CurrentUserDefault())
 
-    def create(self, validated_data):
-        print('create')
+    user = UserSerializer(read_only=True)
+    user_id = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(), write_only=True, source='user', default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Contact
