@@ -40,12 +40,11 @@ class ContactViewSet(viewsets.ModelViewSet):
 def create_auth(request):
     serialized = UserSerializer(data=request.data)
     if serialized.is_valid():
-        # user = User.objects.create_user(
-        #     serialized.data['username'],
-        #     serialized.data['email'],
-        #     request.data['password']
-        # )
-        user = User.objects.get(pk=3)
-        return Response(UserSerializer(user), status=status.HTTP_201_CREATED)
+        user = User.objects.create_user(
+            serialized.data['username'],
+            serialized.data['email'],
+            request.data['password']
+        )
+        return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
