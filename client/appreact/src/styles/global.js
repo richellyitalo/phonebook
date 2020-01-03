@@ -1,7 +1,7 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
-  @import url('https://fonts.google.com/specimen/Source+Sans+Pro');
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
 
   * {
     padding: 0;
