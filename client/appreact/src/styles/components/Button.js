@@ -1,5 +1,4 @@
-import style, { css } from 'styled-components';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const sizes = {
   small: css`
@@ -41,9 +40,9 @@ const colors = {
   `
 };
 
-const Button = styled.button.attrs({
-  type: 'button'
-})`
+const Button = styled.button.attrs(props => ({
+  type: props.type || 'button'
+}))`
   border-radius: 3px;
   transition: background-color 0.15s ease;
   background: #7289da;
@@ -69,4 +68,4 @@ const Button = styled.button.attrs({
     `}
 `;
 
-export default Button
+export default Button;

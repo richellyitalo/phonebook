@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Container, SignForm } from '../styles';
 import Button from '../../../styles/components/Button';
 
-export default class SignIn extends Component {
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import AuthActions from '../../../store/ducks/auth';
+
+class SignIn extends Component {
+  static propTypes = {
+    signInRequest: PropTypes.func.isRequired
+  };
+
   state = {
-    email: '',
+    username: '',
     password: ''
   };
 
   handleSubmit = e => {
     e.preventDefault();
 
-    const { email, password } = this.state;
+    const { username, password } = this.state;
+    const { signInRequest } = this.props;
+    console.log('vai');
+    signInRequest(username, password);
   };
 
   handleInputChange = e => {
@@ -20,7 +32,7 @@ export default class SignIn extends Component {
   };
 
   render() {
-    const { email, password } = this.state;
+    const { username, password } = this.state;
 
     return (
       <Container>
@@ -30,8 +42,8 @@ export default class SignIn extends Component {
           <span>E-mail</span>
           <input
             type="text"
-            name="email"
-            value={email}
+            name="username"
+            value={username}
             onChange={this.handleInputChange}
           />
 
@@ -51,3 +63,8 @@ export default class SignIn extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(AuthActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(SignIn);
